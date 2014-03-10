@@ -1,0 +1,16 @@
+{% layout none %}
+{% capture results %}
+  {% for item in search.results %}
+    {% assign product = item %}
+    { 
+      "title"    : {{ product.title | json }},
+      "url"      : {{ product.url | within: product.collections.last | json }},
+      "thumbnail": {{ product.featured_image.src | product_img_url: 'thumb' | json }}
+    }
+    {% unless forloop.last %},{% endunless %}
+  {% endfor %}
+{% endcapture %}
+{
+  "results_count": {{ search.results_count }},
+  "results": [{{ results }}]
+}
