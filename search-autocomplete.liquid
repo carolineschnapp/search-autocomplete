@@ -9,7 +9,7 @@
 $(function() {
   // Current Ajax request.
   var currentAjaxRequest = null;
-  // Grabbing all search forms on the page, and adding a .search-results list to each of them.
+  // Grabbing all search forms on the page, and adding a .search-results list to each.
   var searchForms = $('form[action="/search"]').css('position','relative').each(function() {
     // Grabbing text input.
     var input = $(this).find('input[name="q"]');
