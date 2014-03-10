@@ -7,6 +7,8 @@
 
 <script>
 $(function() {
+  // Current Ajax request.
+  var currentAjaxRequest = null;
   // Grabbing all search forms on the page, and adding a .search-results list to each of them.
   var searchForms = $('form[action="/search"]').css('position','relative').each(function() {
     // Grabbing text input.
@@ -26,9 +28,12 @@ $(function() {
       var resultsList = form.find('.search-results');
       // If that's a new term and it contains at least 3 characters.
       if (term.length > 3 && term != $(this).attr('data-old-term')) {
-        // resultsList.empty().fadeOut(2000);
+        // Saving old query.
         $(this).attr('data-old-term', term);
-        $.getJSON(searchURL + '&view=json', function(data) {
+        // Killing any Ajax request that's currently being processed.
+        if (currentAjaxRequest != null) currentAjaxRequest.abort();
+        // Pulling results.
+        currentAjaxRequest = $.getJSON(searchURL + '&view=json', function(data) {
           // Reset results.
           resultsList.empty();
           // If we have no results.
@@ -100,7 +105,7 @@ $(function() {
   padding-left: 8px;
   white-space: nowrap;
   overflow: hidden;
-  /* The text-overflow property is supported in all major browsers.*/
+  /* The text-overflow property is supported in all major browsers. */
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   text-align: left;
