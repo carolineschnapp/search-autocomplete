@@ -15,7 +15,7 @@ $(function() {
     var input = $(this).find('input[name="q"]');
     // Adding a list for showing search results.
     var offSet = input.position().top + input.innerHeight();
-    $('<ul class="search-results"></ul>').css('top', offSet).appendTo($(this)).hide();    
+    $('<ul class="search-results"></ul>').css( { 'position': 'absolute', 'left': '0px', 'top': offSet } ).appendTo($(this)).hide();    
     // Listening to keyup and change on the text field within these search forms.
     input.attr('autocomplete', 'off').bind('keyup change', function() {
       // What's the search term?
@@ -71,9 +71,6 @@ $(function() {
 <!-- Some styles to get you started. -->
 <style>
 .search-results {
-  position: absolute;
-  left: 0;
-  top: 100%;
   z-index: 8889;
   list-style-type: none;   
   width: {{ results_box_width }};
